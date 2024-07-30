@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ID Card Portal</title>
+    <link rel="shortcut icon" href="https://www.jiteshmanaktala.com/wp-content/uploads/2018/02/1-1.jpg">
+    <link href='https://fonts.googleapis.com/css?family=Lobster|Open+Sans:400,400italic,300italic,300|Raleway:300,400,600'
+          rel='stylesheet' type='text/css'>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'Static_id-card/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Static_id-card/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Static_id-card/stylemenu.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Static_id-card/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Static_id-card/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Static_id-card/jquery.dataTables.css' %}">
+
+
+</head>
+<body>
+
+<body>
+<div class="content">
+
+    <header class="text-center">
+        <nav class="navbar navbar-default ">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                </div>
+
+
+                <div class="collapse navbar-collapse pull-left " id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="{% url 'students_dashboard' %}">HOME <span
+                                class="sr-only">(current)</span></a></li>
+                        
+                    </ul>
+
+                </div>
+
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false"> - <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="https://lovely-onlineidcards.com/profile">Profile</a></li>
+                                <li><a href="https://lovely-onlineidcards.com/setting">Setting</a></li>
+                                <li><a href="https://lovely-onlineidcards.com/users/logout">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+
+        </nav>
+
+    </header>
+
+    <section>
+        <div class="row" style="margin:30px;">
+
+
+            <div class="row">
+
+            </div>
+
+            <div class="col-sm-4" style="float: left; ">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><span class="btn bg-success">Filter By </span>
+                        <span class="bg-info  text-center" style="color:#333;">
+       --  :::  --     </span></div>
+                </div>
+            </div>
+
+            <div style="float:right;">
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Apply Filter
+                </button>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group col-md-3 text-center bg-danger text-warning"
+                     style="margin: 25px; left: 330px; top: 70px;">
+
+                    {{ UserData.Name }}<br/> <img src="{{ UserData.Photo }}" height=200
+                                                  width=200/> </a> <br/> <br/>
+
+                </div>
+                <div class="form-group col-md-6 bg-warning text-danger" style="margin: 10px;top: -200px;">
+                    <div class="form-group" style="margin-top: 10px;">
+                        <label for="staffname" class="col-md-4">Student Name<span class="text-danger">*</span></label>
+                        <div class="col-md-8">
+                            <input type="text" name="staffname" value="{{ UserData.Name }}" class="form-control"
+                                   id="staffname"/> <br/>
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="designation" class="col-md-4">Father Name</label>
+                        <div class="col-md-8">
+                            <input type="text" name="qualification" value="{{ UserData.FatherName }}"
+                                   class="form-control"
+                                   id="qualification"/> <br/>
+                            <hr/>
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="designation" class="col-md-4">Designation</label>
+                        <div class="col-md-8">
+                            <input type="text" name="designation" value="Student" class="form-control"
+                                   id="designation"/> <br/>
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dept" class="col-md-4">Department</label>
+                        <div class="col-md-8">
+                            <input type="text" name="dept" value="{{ UserData.Department }}" class="form-control"
+                                   id="dept"/> <br/>
+                            <hr/>
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="photono" class="col-md-4 control-label">Photono</label>
+                        <div class="col-md-8">
+                            <input type="text" name="photono" value="{{ UserData.Photo }}" class="form-control"
+                                   id="photono"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateofbirth" class="col-md-4 control-label">Date of Birth</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="dateofbirth"
+                                   value="{{ UserData.DateOfBirth }}"
+                                   id="dateofbirth"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bloodgroup" class="col-md-4 control-label">Bloodgroup</label>
+                        <div class="col-md-8">
+                            <input type="text" name="bloodgroup" value="O+ve" class="form-control" id="bloodgroup"/>
+                            <br/>
+                            <hr/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailid" class="col-md-4 control-label">Email Id.</label>
+                        <div class="col-md-8">
+                            <input type="text" name="emailid" value="" class="form-control" id="emailid"/>
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phnum" class="col-md-4 control-label">Mobile No.</label>
+                        <div class="col-md-8">
+                            <input type="text" name="phnum" value="{{ UserData.Phone }}" class="form-control"
+                                   id="phnum"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address1" class="col-md-4 control-label">Address1</label>
+                        <div class="col-md-8">
+                            <input type="text" name="address1" value="{{ UserData.Address }}" class="form-control"
+                                   id="address1"/>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="staffid" class="col-md-4 control-label">Student Reg No</label>
+                        <div class="col-md-8">
+                            <input type="text" name="staffid" value="{{ UserData.RegNo }}" class="form-control"
+                                   id="staffid"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="aadharno" class="col-md-4 control-label">Batch</label>
+                        <div class="col-md-8">
+                            <input type="text" name="aadharno" value="{{ UserData.Batch }}" class="form-control"
+                                   id="aadharno"/>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+
+
+                </div>
+
+
+            </div>
+        </div>  <!-- class container -->
+    </section>
+</div>  <!-- class content -->
+
+<footer class="footer">
+    <div class="container">
+        <div class="row bort">
+
+            <div class="copyright">
+                © Copyright Best ID Cards. All rights reserved.
+                <div class="credits">
+                    <!--
+                      All the links in the footer should remain intact.
+                      You can delete the links only if you purchased the pro version.
+                      Licensing information: https://bootstrapmade.com/license/
+                      Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Maundy
+                    -->
+                    Designed by <a>Nee Thaanda Developer</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</footer>
+
+<script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="{% static 'Static_id-card/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'Static_id-card/scriptmenu.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'Static_id-card/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'Static_id-card/setting.js' %}"></script>
+
+
+<!-- DatePicker -->
+<script src="{% static 'Static_id-card/moment.js' %}"></script>
+<script src="{% static 'Static_id-card/bootstrap-datetimepicker.min.js' %}"></script>
+<script src="{% static 'Static_id-card/global.js' %}"></script>
+<script src="{% static 'Static_id-card/jquery.dataTables.js' %}"></script>
+</div> <!-- div content -->
+</body>
+<script>
+    $(document).ready(function () {
+        $('#table1').DataTable();
+    });
+</script>
+{#</html>#}

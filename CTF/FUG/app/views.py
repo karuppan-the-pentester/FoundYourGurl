@@ -7,7 +7,6 @@ IsLogin = False
 username = ''
 
 
-
 def index(request):
     return render(request, 'index.html')
 
@@ -58,3 +57,15 @@ def SignoutPage(request):
     global IsLogin
     IsLogin = False
     return redirect('students_portal')
+
+def id_card(request,u_id):
+    if IsLogin == True:
+        try:
+            j = UsersDataBase.objects.get(id=u_id)
+            return render(request, 'id_card/index.html',{'UserData':{'Name':str(j.name), 'RegNo':str(j.RegNo), 'Department':str(j.Department), 'Batch':str(j.Batch),'FatherName':str(j.FatherName),'MotherName':str(j.MotherName),'DateOfBirth':str(j.DateOfBirth),'Address':str(j.Address),'Phone':str(j.Phone),'Photo':str(j.Photo)}})
+        except Exception as e:
+            print(e)
+            return redirect('students_dashboard')
+    else:
+        return redirect('students_dashboard')
+
