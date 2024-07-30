@@ -1,6 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from .models import UsersDataBase,Notification
 
 # Create your views here.
+global IsLogin,username
+IsLogin = False
+username = ''
+
+
 
 def index(request):
     return render(request, 'index.html')
@@ -9,4 +15,46 @@ def admission_page(request):
     return render(request, 'Admission_page.html')
 
 def student_portal(request):
-    return render(request, 'student-portal.html')
+    Users = set()
+    for i in UsersDataBase.objects.all():
+        Users.add(i.RegNo)
+
+    global IsLogin, username
+
+    if IsLogin == False:
+        if (request.method == 'POST'):
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+
+            for j in UsersDataBase.objects.filter(RegNo=username):
+                if (username == j.RegNo and password == j.PassWord) :
+                    IsLogin = True
+                    return redirect('students_dashboard')
+                else:
+                    return redirect('students_portal')
+
+        else:
+            return render(request, 'student-portal.html')
+    else:
+        return redirect('students_dashboard')
+
+def students_dashboard(request):
+    if IsLogin == True:
+        j=UsersDataBase.objects.get(RegNo=username)
+        MessageList = []
+        tempDict = {}
+        for i in Notification.objects.filter(userid=username):
+            tempDict['Title'] = i.title
+            tempDict['Content'] = i.message
+            tempDict['Time'] = i.time
+            tempDict['Url'] = i.url
+            MessageList.append(tempDict)
+
+        return render(request, 'dashboard/index.html',{'ParsingData': {'Name':str(j.name),'Batch':str(j.Department),'ProfilePic':str(j.Photo) , 'Notification':len(MessageList)  }, 'UserMessage':MessageList })
+    else:
+        return redirect('students_portal')
+
+def SignoutPage(request):
+    global IsLogin
+    IsLogin = False
+    return redirect('students_portal')

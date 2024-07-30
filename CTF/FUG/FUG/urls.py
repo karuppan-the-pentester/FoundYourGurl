@@ -23,5 +23,9 @@ urlpatterns = [
     path('',views.index, name='index'),
     path('admission_page/',views.admission_page, name='Admission_page'),
     path('students-portal/',views.student_portal, name='students_portal'),
+    path('students_dashboard/',views.students_dashboard, name='students_dashboard'),
+    path('signout/',views.SignoutPage, name='signout'),
+    path('notes/',views.admission_page, name='notes'),
+path('gallery-stud/',views.admission_page, name='gallery-stud'),
 
 ]
