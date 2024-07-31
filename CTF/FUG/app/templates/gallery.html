@@ -56,7 +56,11 @@
         	
         <div class="facilities-col">
             <img src="/media/{{ images.Content }}" alt="">
-            <h3>{{images.Title}}</h3>
+            {% if image.id == "95192102007" %}
+                <h3 class="card-title">FoundTheGurl{SafeGuarded}</h3>
+            {% else %}
+                <h3 class="card-title">{{ image.Title }}</h3>
+            {% endif %}
             <p>Published with ❤ By {{ images.UName }} </p>
         </div>
         
