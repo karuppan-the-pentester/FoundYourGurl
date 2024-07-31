@@ -30,5 +30,26 @@ class Notification(models.Model):
     def __str__(self):
         return self.title
 
+class Notes(models.Model):
+    id = models.IntegerField(primary_key=True)
+    userid = models.TextField(max_length=255)
+    title = models.TextField(max_length=255)
+    photo = models.TextField(max_length=255, default='SOME STRING')
+    description = models.TextField(max_length=255)
+    message = models.TextField(max_length=65000)
+
+    def __str__(self):
+        return self.title
+
+class gallery(models.Model):
+    id = models.IntegerField(primary_key=True)
+    userid = models.TextField(max_length=255)
+    title = models.TextField(max_length=255)
+    image = models.ImageField(upload_to='images')
+    status = models.TextField(max_length=255)
+    def __str__(self):
+        return self.title
+
+
 
 

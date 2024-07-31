@@ -25,8 +25,8 @@ urlpatterns = [
     path('students-portal/',views.student_portal, name='students_portal'),
     path('students_dashboard/',views.students_dashboard, name='students_dashboard'),
     path('signout/',views.SignoutPage, name='signout'),
-    path('notes/',views.admission_page, name='notes'),
+    path('notes/',views.notes, name='notes'),
+    path('notes/view-notes/<int:notes_id>',views.view_notes, name='view_notes'),
     path('gallery-stud/',views.admission_page, name='gallery-stud'),
     path('id-card/<int:u_id>',views.id_card, name='id_card'),
-
 ]

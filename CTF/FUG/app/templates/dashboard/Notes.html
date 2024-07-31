@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Student Portal | Notes</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="{% static 'Static_DashBoard/img/favicon.png ' %}" rel="icon">
+    <link href="{% static 'Static_DashBoard/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'Static_DashBoard/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'Static_DashBoard/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'Static_DashBoard/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'Static_DashBoard/vendor/quill/quill.snow.css' %}" rel="stylesheet">
+    <link href="{% static 'Static_DashBoard/vendor/quill/quill.bubble.css' %}" rel="stylesheet">
+    <link href="{% static 'Static_DashBoard/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+    <link href="{% static 'Static_DashBoard/vendor/simple-datatables/style.css' %}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'Static_DashBoard/css/style.css' %}" rel="stylesheet">
+
+    <!-- =======================================================
+    * Template Name: NiceAdmin
+    * Updated: May 30 2023 with Bootstrap v5.3.0
+    * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+
+<!-- ======= Header ======= -->
+<header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+        <a href="{% url 'students_dashboard' %}" class="logo d-flex align-items-center">
+            <img src="{% static 'Static_DashBoard/img/logo.png' %}" alt="">
+            <span class="d-none d-lg-block">Students Portal</span>
+        </a>
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+
+    <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+
+            <li class="nav-item dropdown">
+
+                <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                    <i class="bi bi-chat-left-text"></i>
+                    <span class="badge bg-success badge-number">{{ ParsingData.Notification }}</span>
+                </a><!-- End Messages Icon -->
+
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+                    <li class="dropdown-header">
+                        You have {{ ParsingData.Notification }} new messages
+                        <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                    </li>
+
+                    {% for i in UserMessage %}
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li class="message-item">
+                            <a href="../{{ i.Url }}">
+                                <img src="{% static 'Static_DashBoard/img/admin.jpeg' %}" alt="" class="rounded-circle">
+                                <div>
+                                    <h4>{{ i.Title }}</h4>
+                                    <p>{{ i.Content }}</p>
+                                    <p>{{ i.Time }}</p>
+                                </div>
+                            </a>
+                        </li>
+
+                    {% endfor %}
+
+
+                </ul><!-- End Messages Dropdown Items -->
+
+            </li><!-- End Messages Nav -->
+
+            <li class="nav-item dropdown pe-3">
+
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                    <img src="{{ ParsingData.ProfilePic }}" alt="Profile" class="rounded-circle">
+                    <span class="d-none d-md-block dropdown-toggle ps-2">{{ ParsingData.Name }}</span>
+                </a><!-- End Profile Iamge Icon -->
+
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                    <li class="dropdown-header">
+                        <h6>{{ ParsingData.Name }}</h6>
+                        <span>{{ ParsingData.Batch }}</span>
+                    </li>
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="{% url 'signout' %}">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Sign Out</span>
+                        </a>
+                    </li>
+
+                </ul><!-- End Profile Dropdown Items -->
+            </li><!-- End Profile Nav -->
+
+        </ul>
+    </nav><!-- End Icons Navigation -->
+
+</header><!-- End Header -->
+
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-heading">Pages</li>
+
+        <li class="nav-item">
+            <a class="nav-link " href="{% url 'notes' %}">
+                <i class="bi bi-journal-text"></i><span>Notes</span>
+
+            </a>
+        </li><!-- End Profile Page Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'gallery-stud' %}">
+                <i class="bx bxs-photo-album"></i>
+                <span>Gallery</span>
+            </a>
+        </li><!-- End F.A.Q Page Nav -->
+
+
+    </ul>
+
+</aside><!-- End Sidebar-->
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Personal Notes</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'notes' %}">Home</a></li>
+                <li class="breadcrumb-item active">Notes</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row align-items-top">
+
+            {% for Note in NotesList %}
+
+                <div class="col-lg-3">
+                    <!-- Card with an image on top -->
+                    <a class="card" href="view-notes/{{ Note.id }}">
+                        <img src="{{ Note.Photo }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ Note.Title }}</h5>
+                            <p class="card-text">{{ Note.Description }}</p>
+                        </div>
+                    </a><!-- End Card with an image on top -->
+                </div>
+
+            {% endfor %}
+
+
+        </div>
+
+    </section>
+
+
+    <div class="pagetitle">
+        <h1>College Notes</h1>
+    </div><!-- End Page Title -->
+    <section class="section dashboard">
+        <div class="row align-items-top">
+            <div class="col-lg-6">
+                
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="https://greattransition.org/images/Dignity_graphic.png" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Dignity of the college</h5>
+                                <p class="card-text">Upholding the college's dignity through academic excellence, ethical conduct, and community involvement.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="https://i.ytimg.com/vi/4VbJ3UsCyE8/maxresdefault.jpg" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Became Marana Coder</h5>
+                                <p class="card-text">Mastered programming skills through persistent learning and practical application.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="col-lg-6">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="https://i1.wp.com/www.whats-your-sign.com/wp-content/uploads/2018/04/ZodiacSignMeaning2.jpg" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Raguvum Kethuvum</h5>
+                                <p class="card-text">Exploring how astrology influences people's beliefs and behaviors across cultures.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+</main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer" class="footer">
+    <div class="copyright">
+        &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+        Designed by <a href="https://github.com/karuppan-the-pentester">Karuppan The Pentester</a>
+    </div>
+</footer><!-- End Footer -->
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="{% static 'Static_DashBoard/vendor/apexcharts/apexcharts.min.js' %}"></script>
+<script src="{% static 'Static_DashBoard/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'Static_DashBoard/vendor/chart.js' %}/chart.umd.js' %}"></script>
+<script src="{% static 'Static_DashBoard/vendor/echarts/echarts.min.js' %}"></script>
+<script src="{% static 'Static_DashBoard/vendor/quill/quill.min.js' %}"></script>
+<script src="{% static 'Static_DashBoard/vendor/simple-datatables/simple-datatables.js' %}"></script>
+<script src="{% static 'Static_DashBoard/vendor/tinymce/tinymce.min.js' %}"></script>
+<script src="{% static 'Static_DashBoard/vendor/php-email-form/validate.js' %}"></script>
+
+<!-- Template Main JS File -->
+<script src="{% static 'Static_DashBoard/js/main.js' %}"></script>
+
+</body>
+
+</html>

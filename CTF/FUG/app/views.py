@@ -1,8 +1,8 @@
-from django.shortcuts import render,redirect
-from .models import UsersDataBase,Notification
+from django.shortcuts import render, redirect
+from .models import UsersDataBase, Notification, Notes
 
 # Create your views here.
-global IsLogin,username
+global IsLogin, username
 IsLogin = False
 username = ''
 
@@ -10,8 +10,10 @@ username = ''
 def index(request):
     return render(request, 'index.html')
 
+
 def admission_page(request):
     return render(request, 'Admission_page.html')
+
 
 def student_portal(request):
     Users = set()
@@ -26,7 +28,7 @@ def student_portal(request):
             password = request.POST.get('password')
 
             for j in UsersDataBase.objects.filter(RegNo=username):
-                if (username == j.RegNo and password == j.PassWord) :
+                if (username == j.RegNo and password == j.PassWord):
                     IsLogin = True
                     return redirect('students_dashboard')
                 else:
@@ -37,9 +39,10 @@ def student_portal(request):
     else:
         return redirect('students_dashboard')
 
+
 def students_dashboard(request):
     if IsLogin == True:
-        j=UsersDataBase.objects.get(RegNo=username)
+        j = UsersDataBase.objects.get(RegNo=username)
         MessageList = []
         tempDict = {}
         for i in Notification.objects.filter(userid=username):
@@ -49,23 +52,94 @@ def students_dashboard(request):
             tempDict['Url'] = i.url
             MessageList.append(tempDict)
 
-        return render(request, 'dashboard/index.html',{'ParsingData': {'Name':str(j.name),'Batch':str(j.Department),'ProfilePic':str(j.Photo) , 'Notification':len(MessageList)  }, 'UserMessage':MessageList })
+        return render(request, 'dashboard/index.html', {
+            'ParsingData': {'Name': str(j.name), 'Batch': str(j.Department), 'ProfilePic': str(j.Photo),
+                            'Notification': len(MessageList)}, 'UserMessage': MessageList})
     else:
         return redirect('students_portal')
+
 
 def SignoutPage(request):
     global IsLogin
     IsLogin = False
     return redirect('students_portal')
 
-def id_card(request,u_id):
+
+def id_card(request, u_id):
     if IsLogin == True:
         try:
             j = UsersDataBase.objects.get(id=u_id)
-            return render(request, 'id_card/index.html',{'UserData':{'Name':str(j.name), 'RegNo':str(j.RegNo), 'Department':str(j.Department), 'Batch':str(j.Batch),'FatherName':str(j.FatherName),'MotherName':str(j.MotherName),'DateOfBirth':str(j.DateOfBirth),'Address':str(j.Address),'Phone':str(j.Phone),'Photo':str(j.Photo)}})
+            return render(request, 'id_card/index.html', {
+                'UserData': {'Name': str(j.name), 'RegNo': str(j.RegNo), 'Department': str(j.Department),
+                             'Batch': str(j.Batch), 'FatherName': str(j.FatherName), 'MotherName': str(j.MotherName),
+                             'DateOfBirth': str(j.DateOfBirth), 'Address': str(j.Address), 'Phone': str(j.Phone),
+                             'Photo': str(j.Photo)}})
         except Exception as e:
             print(e)
             return redirect('students_dashboard')
+    else:
+        return redirect('students_dashboard')
+
+
+def notes(request):
+    if IsLogin == True:
+        j = UsersDataBase.objects.get(RegNo=username)
+        MessageList = [{
+            'Title': i.title,
+            'Content': i.message,
+            'Time': i.time,
+            'Url': i.url
+        } for i in Notification.objects.filter(userid=username)]
+
+        NotesList = [{
+            'id': k.id,
+            'Title': k.title,
+            'Content': k.message,
+            'Description': k.description,
+            'Photo': k.photo
+        } for k in Notes.objects.filter(userid=username)]
+
+        return render(request, 'dashboard/Notes.html',
+                      {'ParsingData':
+                           {'Name': str(j.name), 'Batch': str(j.Department), 'ProfilePic': str(j.Photo),
+                            'Notification': len(MessageList)},
+                       'UserMessage': MessageList,
+                       'NotesList': NotesList})
+    else:
+        return redirect('students_dashboard')
+
+def view_notes(request,notes_id):
+    if IsLogin == True :
+        UserNotesList = []
+        for NotesID in Notes.objects.filter(userid=username):
+            UserNotesList.append(NotesID.id)
+        if(notes_id in UserNotesList):
+            j = UsersDataBase.objects.get(RegNo=username)
+            MessageList = [{
+                'Title': i.title,
+                'Content': i.message,
+                'Time': i.time,
+                'Url': i.url
+            } for i in Notification.objects.filter(userid=username)]
+
+            k = Notes.objects.get(id=notes_id)
+            NotesList = {
+                'id': k.id,
+                'Title': k.title,
+                'Content': k.message,
+                'Description': k.description,
+                'Photo': k.photo
+            }
+
+            return render(request, 'dashboard/ViewNote.html',
+                          {'ParsingData':
+                               {'Name': str(j.name), 'Batch': str(j.Department), 'ProfilePic': str(j.Photo),
+                                'Notification': len(MessageList)},
+                           'UserMessage': MessageList,
+                           'NotesList': NotesList})
+        else:
+            return redirect('notes')
+
     else:
         return redirect('students_dashboard')
 
