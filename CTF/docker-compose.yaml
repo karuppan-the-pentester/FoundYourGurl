@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  fug:
+    build: .
+    container_name: foundthegurl
+    ports:
+      - "8000:8000"
+    hostname: akkauniversity.edu.in
