@@ -18,15 +18,25 @@ from django.contrib import admin
 from django.urls import path
 from app import views
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index, name='index'),
     path('admission_page/',views.admission_page, name='Admission_page'),
     path('students-portal/',views.student_portal, name='students_portal'),
     path('students_dashboard/',views.students_dashboard, name='students_dashboard'),
+    path('gallery/',views.Gallery, name='gallery'),
     path('signout/',views.SignoutPage, name='signout'),
     path('notes/',views.notes, name='notes'),
     path('notes/view-notes/<int:notes_id>',views.view_notes, name='view_notes'),
-    path('gallery-stud/',views.admission_page, name='gallery-stud'),
+    path('gallery-stud/',views.gallery_stud, name='gallery-stud'),
+    path('upload/', views.image_upload_view, name='upload'),
     path('id-card/<int:u_id>',views.id_card, name='id_card'),
+
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ta" xml:lang="en">
+<meta charset="utf-8">
+
+{% load static %}
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Akka University</title>
+
+    <link rel="stylesheet" href="{% static 'Static_Clg/css/main_style.css' %}">
+    <link rel="shortcut icon" href="{% static 'Static_Clg/image/favicon.ico' %}" type="image/svg+xml">
+</head>
+
+<body>
+
+<section class="header">
+    <nav>
+        <a href="/"><img src="{% static 'Static_Clg/image/logo.png' %}" id="logo-img"></a>
+
+        <div class="nav-links" id="navLinks">
+
+            <span class="icon" onclick="hidemenu()">&#10005;</span>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'Admission_page' %}">Admission</a></li>
+                <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                <li><a href="{% url 'students_portal' %}">Student Portal</a></li>
+            </ul>
+        </div>
+        <span class="icon" onclick="showmenu()">&#9776;</span>
+    </nav>
+
+    <div class="text-box">
+        <h1>Akka University</h1>
+        <p>In Akka University we had a keen rule and discipline which must followed by our students it is, <br>
+            Boys-Boys talk | Girls-Girls Talk | If Boys-Girls Talk, Dean will Talk</p>
+
+        <a href="admission_page" class="hero-btn">Admission Open</a>
+    </div>
+</section>
+
+<!--Course of Collage-->
+
+
+<!--Facilities Section-->
+
+<section class="facilities">
+    <h1> Our Public Gallery</h1>
+    <p>These all are the arts from our beloved students</p>
+    
+    
+    <div class="row">
+        {% for images in gallery %}
+        	
+        <div class="facilities-col">
+            <img src="/media/{{ images.Content }}" alt="">
+            <h3>{{images.Title}}</h3>
+            <p>Published with ❤ By {{ images.UName }} </p>
+        </div>
+        
+        {% endfor %}
+
+    </div>
+    
+    
+
+</section>
+
+<!--Call To Action Section-->
+
+<section class="ctn">
+    <h1> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h1>
+</section>
+
+<!--Footer-->
+<section class="footer">
+    <h4>About Us</h4>
+    <p>The Akka University at Dholakpur provide one of the earliest form of technical studies,
+        which has been vital in setting up the standard of brilliance.</p>
+    <p id="copyright">Made By &#10084; Destro-Sec</p>
+</section>
+
+<!--Javascript is Start-->
+<script src="{% static 'Static_Clg/javascript/main_script.js' %}"></script>
+</body>
+
+
+</html>

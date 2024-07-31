@@ -139,14 +139,14 @@
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
-            <a class="nav-link " href="{% url 'notes' %}">
+            <a class="nav-link collapsed" href="{% url 'notes' %}">
                 <i class="bi bi-journal-text"></i><span>Notes</span>
 
             </a>
         </li><!-- End Profile Page Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{% url 'gallery-stud' %}">
+            <a class="nav-link " href="{% url 'gallery-stud' %}">
                 <i class="bx bxs-photo-album"></i>
                 <span>Gallery</span>
             </a>
@@ -160,91 +160,80 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Personal Notes</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'notes' %}">Home</a></li>
-                <li class="breadcrumb-item active">Notes</li>
-            </ol>
-        </nav>
+        <h1>Pending Images</h1>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
         <div class="row align-items-top">
 
-            {% for Note in NotesList %}
+            {% for image in gallery %}
+                {% if image.status == 'Pending' %}
 
-                <div class="col-lg-3">
-                    <!-- Card with an image on top -->
-                    <a class="card" href="view-notes/{{ Note.id }}">
-                        <img src="{{ Note.Photo }}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ Note.Title }}</h5>
-                            <p class="card-text">{{ Note.Description }}</p>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ image.Title }}</h5>
+                                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <img src="/media/{{ image.Content }}" class="d-block w-100"
+                                                 alt="...">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </a><!-- End Card with an image on top -->
-                </div>
+                    </div>
 
+                {% else %}
+
+                    <div class="card">
+                        <h5>No Images Found</h5>
+                    </div>
+
+                {% endif %}
             {% endfor %}
 
-
         </div>
+
 
     </section>
 
 
     <div class="pagetitle">
-        <h1>College Notes</h1>
+        <h1>Published Images</h1>
     </div><!-- End Page Title -->
     <section class="section dashboard">
         <div class="row align-items-top">
-            <div class="col-lg-6">
-                
-                <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="https://greattransition.org/images/Dignity_graphic.png" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Dignity of the college</h5>
-                                <p class="card-text">Upholding the college's dignity through academic excellence, ethical conduct, and community involvement.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="https://i.ytimg.com/vi/4VbJ3UsCyE8/maxresdefault.jpg" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Became Marana Coder</h5>
-                                <p class="card-text">Mastered programming skills through persistent learning and practical application.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <div class="col-lg-6">
-                <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="https://i1.wp.com/www.whats-your-sign.com/wp-content/uploads/2018/04/ZodiacSignMeaning2.jpg" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Raguvum Kethuvum</h5>
-                                <p class="card-text">Exploring how astrology influences people's beliefs and behaviors across cultures.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            {% for image in gallery %}
+                {% if image.status == 'Published' %}
 
-            </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                            
+                                {% if image.id == "95192102007" %}
+                                    <h5 class="card-title">FoundTheGurl{SafeGuarded}</h5>
+                                {% else %}
+                                    <h5 class="card-title">{{ image.Title }}</h5>
+                                {% endif %}
+
+                                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <img src="/media/{{ image.Content }}" class="d-block w-100"
+                                                 alt="...">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endif %}
+            {% endfor %}
+
+
         </div>
 
     </section>

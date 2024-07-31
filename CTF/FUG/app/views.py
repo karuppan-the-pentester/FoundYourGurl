@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import UsersDataBase, Notification, Notes
+from .models import UsersDataBase, Notification, Notes, gallery
+from .forms import ImageForm
 
 # Create your views here.
 global IsLogin, username
@@ -38,6 +39,18 @@ def student_portal(request):
             return render(request, 'student-portal.html')
     else:
         return redirect('students_dashboard')
+
+def Gallery(request):
+        ImageList = [{
+            'Title': k.title,
+            'Content': k.image.name,
+            'id': k.id,
+            'status': k.status,
+            'UName': UsersDataBase.objects.get(RegNo=k.userid).name
+        } for k in gallery.objects.filter(status="Published")]
+
+        return render(request, 'gallery.html', {'gallery': ImageList})
+
 
 
 def students_dashboard(request):
@@ -140,6 +153,45 @@ def view_notes(request,notes_id):
         else:
             return redirect('notes')
 
+    else:
+        return redirect('students_dashboard')
+
+def gallery_stud(request):
+    if IsLogin == True:
+        j = UsersDataBase.objects.get(RegNo=username)
+        MessageList = [{
+            'Title': i.title,
+            'Content': i.message,
+            'Time': i.time,
+            'Url': i.url
+        } for i in Notification.objects.filter(userid=username)]
+
+        ImageList = [{
+            'Title': k.title,
+            'Content': k.image.name,
+            'id': k.id,
+            'status': k.status
+        } for k in gallery.objects.filter(userid=username)]
+
+        return render(request, 'dashboard/Gallery-Stud.html', {
+            'ParsingData': {'Name': str(j.name), 'Batch': str(j.Department), 'ProfilePic': str(j.Photo),
+                            'Notification': len(MessageList)}, 'UserMessage': MessageList, 'gallery': ImageList})
+    else:
+        return redirect('students_portal')
+
+def image_upload_view(request):
+    if IsLogin == True:
+        if request.method == 'POST':
+            form = ImageForm(request.POST, request.FILES)
+            if form.is_valid():
+                img_obj = form.save(commit=False)
+                img_obj.userid = username
+                img_obj.save()
+                return render(request, 'dashboard/ImageUpload.html', {'form': form, 'img_obj': img_obj})
+        else:
+            form = ImageForm(initial={'status': 'Pending'})
+
+        return render(request, 'dashboard/ImageUpload.html', {'form': form})
     else:
         return redirect('students_dashboard')
 
