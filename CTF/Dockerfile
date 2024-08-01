@@ -19,6 +19,7 @@ COPY ./script.sh /var/www/html/
 RUN chmod 777 /var/www/html/script.sh
 
 WORKDIR /var/www/html/
+RUN rm db.sqlite3
 
 RUN python3 -m virtualenv venv
 

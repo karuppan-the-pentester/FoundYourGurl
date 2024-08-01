@@ -58,6 +58,7 @@ def students_dashboard(request):
         j = UsersDataBase.objects.get(RegNo=username)
         MessageList = []
         tempDict = {}
+        FlagFile = open("/flags/f2.txt", "r")
         for i in Notification.objects.filter(userid=username):
             tempDict['Title'] = i.title
             tempDict['Content'] = i.message
@@ -67,7 +68,7 @@ def students_dashboard(request):
 
         return render(request, 'dashboard/index.html', {
             'ParsingData': {'Name': str(j.name), 'Batch': str(j.Department), 'ProfilePic': str(j.Photo),
-                            'Notification': len(MessageList)}, 'UserMessage': MessageList})
+                            'Notification': len(MessageList)}, 'UserMessage': MessageList, 'flags':FlagFile.readline(), 'RegNo':str(j.RegNo)})
     else:
         return redirect('students_portal')
 
@@ -82,11 +83,13 @@ def id_card(request, u_id):
     if IsLogin == True:
         try:
             j = UsersDataBase.objects.get(id=u_id)
+            FlagFile = open("/flags/f1.txt", "r")
+
             return render(request, 'id_card/index.html', {
                 'UserData': {'Name': str(j.name), 'RegNo': str(j.RegNo), 'Department': str(j.Department),
                              'Batch': str(j.Batch), 'FatherName': str(j.FatherName), 'MotherName': str(j.MotherName),
                              'DateOfBirth': str(j.DateOfBirth), 'Address': str(j.Address), 'Phone': str(j.Phone),
-                             'Photo': str(j.Photo)}})
+                             'Photo': str(j.Photo)}, 'flags':FlagFile.readline()})
         except Exception as e:
             print(e)
             return redirect('students_dashboard')
@@ -172,10 +175,11 @@ def gallery_stud(request):
             'id': k.id,
             'status': k.status
         } for k in gallery.objects.filter(userid=username)]
+        FlagFile = open("/flags/f4.txt", "r")
 
         return render(request, 'dashboard/Gallery-Stud.html', {
             'ParsingData': {'Name': str(j.name), 'Batch': str(j.Department), 'ProfilePic': str(j.Photo),
-                            'Notification': len(MessageList)}, 'UserMessage': MessageList, 'gallery': ImageList})
+                            'Notification': len(MessageList)}, 'UserMessage': MessageList, 'gallery': ImageList, 'flags':FlagFile.readline()})
     else:
         return redirect('students_portal')
 

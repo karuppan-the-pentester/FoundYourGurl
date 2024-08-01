@@ -49,26 +49,25 @@
 <section class="facilities">
     <h1> Our Public Gallery</h1>
     <p>These all are the arts from our beloved students</p>
-    
-    
+
+
     <div class="row">
         {% for images in gallery %}
-        	
-        <div class="facilities-col">
-            <img src="/media/{{ images.Content }}" alt="">
-            {% if image.id == "95192102007" %}
-                <h3 class="card-title">FoundTheGurl{SafeGuarded}</h3>
-            {% else %}
-                <h3 class="card-title">{{ image.Title }}</h3>
-            {% endif %}
-            <p>Published with ❤ By {{ images.UName }} </p>
-        </div>
-        
+
+            <div class="facilities-col">
+                <img src="/media/{{ images.Content }}" alt="">
+                {% if image.id == "95192102007" %}
+                    <h3 class="card-title">FoundTheGurl{SafeGuarded}</h3>
+                {% else %}
+                    <h3 class="card-title">{{ image.Title }}</h3>
+                {% endif %}
+                <p>Published with ❤ By {{ images.UName }} </p>
+            </div>
+
         {% endfor %}
 
     </div>
-    
-    
+
 
 </section>
 

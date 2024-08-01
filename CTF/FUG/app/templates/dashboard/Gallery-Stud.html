@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 {% load static %}
 <head>
     <meta charset="utf-8">
@@ -166,6 +166,24 @@
     <section class="section dashboard">
         <div class="row align-items-top">
 
+            <div class="col-lg-6">
+                <a href="{% url 'upload' %}">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Upload your images</h5>
+                            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="{% static 'Static_DashBoard/img/upload.png' %}" class="d-block w-100"
+                                             alt="...">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
             {% for image in gallery %}
                 {% if image.status == 'Pending' %}
 
@@ -185,18 +203,12 @@
                         </div>
                     </div>
 
-                {% else %}
-
-                    <div class="card">
-                        <h5>No Images Found</h5>
-                    </div>
-
                 {% endif %}
+
             {% endfor %}
 
+
         </div>
-
-
     </section>
 
 
@@ -211,9 +223,9 @@
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
-                            
+
                                 {% if image.id == "95192102007" %}
-                                    <h5 class="card-title">FoundTheGurl{SafeGuarded}</h5>
+                                    <h5 class="card-title">{{ flags }}</h5>
                                 {% else %}
                                     <h5 class="card-title">{{ image.Title }}</h5>
                                 {% endif %}

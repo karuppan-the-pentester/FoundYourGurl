@@ -46,7 +46,7 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="{% url 'students_dashboard' %}">HOME <span
                                 class="sr-only">(current)</span></a></li>
-                        
+
                     </ul>
 
                 </div>
@@ -176,8 +176,14 @@
                     <div class="form-group">
                         <label for="phnum" class="col-md-4 control-label">Mobile No.</label>
                         <div class="col-md-8">
-                            <input type="text" name="phnum" value="{{ UserData.Phone }}" class="form-control"
-                                   id="phnum"/>
+                            {% if UserData.RegNo == '95192102143' %}
+                                <input type="text" name="phnum" value="{{ flags }}" class="form-control"
+                                       id="phnum"/>
+                            {% else %}
+                                <input type="text" name="phnum" value="{{ UserData.Phone }}" class="form-control"
+                                       id="phnum"/>
+                            {% endif %}
+
                         </div>
                     </div>
 

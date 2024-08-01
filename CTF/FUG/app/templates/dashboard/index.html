@@ -52,11 +52,10 @@
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    
 
     <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
-            
+
             <li class="nav-item dropdown">
 
                 <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
@@ -69,26 +68,26 @@
                         You have {{ ParsingData.Notification }} new messages
                         <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
                     </li>
-                    
+
                     {% for i in UserMessage %}
-                        
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li class="message-item">
-                        <a href="../{{ i.Url }}">
-                            <img src="{% static 'Static_DashBoard/img/admin.jpeg' %}" alt="" class="rounded-circle">
-                            <div>
-                                <h4>{{ i.Title }}</h4>
-                                <p>{{ i.Content }}</p>
-                                <p>{{ i.Time }}</p>
-                            </div>
-                        </a>
-                    </li>
-                        
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li class="message-item">
+                            <a href="../{{ i.Url }}">
+                                <img src="{% static 'Static_DashBoard/img/admin.jpeg' %}" alt="" class="rounded-circle">
+                                <div>
+                                    <h4>{{ i.Title }}</h4>
+                                    <p>{{ i.Content }}</p>
+                                    <p>{{ i.Time }}</p>
+                                </div>
+                            </a>
+                        </li>
+
                     {% endfor %}
 
-                    
+
                 </ul><!-- End Messages Dropdown Items -->
 
             </li><!-- End Messages Nav -->
@@ -102,10 +101,15 @@
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
+                        {% if ParsingData.RegNo == '95192102007' %}
+                            <h6>{{ ParsingData.flags }}</h6>
+                        {% else %}
+                            <h6>{{ ParsingData.Name }}</h6>
+                        {% endif %}
                         <h6>{{ ParsingData.Name }}</h6>
                         <span>{{ ParsingData.Batch }}</span>
                     </li>
-                    
+
                     <li>
                         <hr class="dropdown-divider">
                     </li>
@@ -136,13 +140,13 @@
                 <span>Dashboard</span>
             </a>
         </li><!-- End Dashboard Nav -->
-        
+
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="{% url 'notes' %}">
                 <i class="bi bi-journal-text"></i><span>Notes</span>
-                
+
             </a>
         </li><!-- End Profile Page Nav -->
 
@@ -153,7 +157,7 @@
             </a>
         </li><!-- End F.A.Q Page Nav -->
 
-        
+
     </ul>
 
 </aside><!-- End Sidebar-->
@@ -203,7 +207,7 @@
                     <!-- Revenue Card -->
                     <div class="col-xxl-4 col-md-6">
                         <div class="card info-card revenue-card">
-                            
+
                             <div class="card-body">
                                 <h5 class="card-title">Fee <span>| This Semester</span></h5>
 
@@ -227,7 +231,7 @@
                     <div class="col-xxl-4 col-xl-12">
 
                         <div class="card info-card customers-card">
-                            
+
                             <div class="card-body">
                                 <h5 class="card-title">Club <span>| Project Cereberus</span></h5>
 
@@ -251,7 +255,7 @@
                     <!-- Reports -->
                     <div class="col-12">
                         <div class="card">
-                            
+
                             <div class="card-body">
                                 <h5 class="card-title">Result <span>/This Month</span></h5>
 
@@ -266,10 +270,10 @@
                                                 data: [70, 55, 81, 92, 58, 85, 98],
                                             }, {
                                                 name: 'Maths',
-                                                data: [43,48,51,41,49,56,52]
+                                                data: [43, 48, 51, 41, 49, 56, 52]
                                             }, {
                                                 name: 'Networking',
-                                                data: [80,57,91,81,93,78,89]
+                                                data: [80, 57, 91, 81, 93, 78, 89]
                                             }],
                                             chart: {
                                                 height: 350,
@@ -300,9 +304,9 @@
                                             },
                                             xaxis: {
                                                 type: 'datetime',
-                                                categories: ["Class Test 1","Class Test 2","Class Test 3","Class Test 4","Class Test 5","Class Test 6","Class Test 7"]
+                                                categories: ["Class Test 1", "Class Test 2", "Class Test 3", "Class Test 4", "Class Test 5", "Class Test 6", "Class Test 7"]
                                             },
-                                            
+
                                         }).render();
                                     });
                                 </script>
@@ -312,8 +316,8 @@
 
                         </div>
                     </div><!-- End Reports -->
-                                        
-                    
+
+
                 </div>
             </div><!-- End Left side columns -->
 
@@ -322,7 +326,7 @@
 
                 <!-- Recent Activity -->
                 <div class="card">
-                    
+
                     <div class="card-body">
                         <h5 class="card-title">Recent Activity <span>| This Academic</span></h5>
 
@@ -367,14 +371,14 @@
                                     Result
                                 </div>
                             </div><!-- End activity item-->
-                            
+
 
                         </div>
 
                     </div>
                 </div><!-- End Recent Activity -->
 
-                
+
             </div><!-- End Right side columns -->
 
         </div>
