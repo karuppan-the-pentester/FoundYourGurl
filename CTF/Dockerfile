@@ -10,10 +10,10 @@ RUN pip3 install requests virtualenv
 COPY FUG /var/www/html/
 COPY requirements.txt /var/www/html/
 
-RUN echo "got_the_evidence{Evidence_found_bhaiya}" > flag.txt
-RUN echo "Setting password for: root"
-RUN echo "root:12345678" | chpasswd
-RUN echo "Password changed"
+RUN adduser --disabled-password --gecos "" foundyourgurl && \
+    echo "foundyourgurl:PassCodeXUV" | chpasswd && \
+    usermod -aG sudo foundyourgurl
+
 
 COPY ./script.sh /var/www/html/
 RUN chmod 777 /var/www/html/script.sh
@@ -23,7 +23,6 @@ RUN rm db.sqlite3
 
 RUN python3 -m virtualenv venv
 
-EXPOSE 8000
 
 CMD [ "/bin/sh"]
 ENTRYPOINT ["/var/www/html/script.sh"]
